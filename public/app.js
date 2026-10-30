@@ -8,6 +8,7 @@ let busy = false;
 let transaction = null;
 let transactionCustomer = '';
 let pollTimer;
+let pollSession = 0;
 let terminal = false;
 let pollFailures = 0;
 const data = () => ({ email: $('#email').value.trim(), name: $('#name').value.trim(), phone: $('#phone').value, document: $('#document').value, terms: $('#terms').checked });
@@ -37,16 +38,21 @@ document.querySelectorAll('dialog').forEach(modal => modal.addEventListener('cli
   const rect = modal.getBoundingClientRect();
   if (event.target === modal && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) modal.close();
 }));
-dialog.addEventListener('close', () => { clearTimeout(pollTimer); pay.focus(); });
+dialog.addEventListener('close', () => { pollSession++; clearTimeout(pollTimer); pay.focus(); });
 function status(message, state = '') { $('#payment-status').textContent = message; $('#payment-status').className = `payment-status ${state}`; }
-function expired() { const date = Date.parse(transaction?.expiresAt); return Number.isFinite(date) && date <= Date.now(); }
 async function poll() {
   if (!dialog.open || !transaction || terminal) return;
-  if (expired()) { status('Este Pix expirou. Feche esta janela para gerar um novo.', 'expired'); $('#copy-button').disabled = true; transaction = null; refresh(); return; }
+  // Only the gateway can determine expiry. Browser clocks and provider date formats
+  // must never invalidate a code or cause a duplicate charge.
+  const current = transaction;
+  const session = pollSession;
+  const isCurrent = () => dialog.open && transaction === current && session === pollSession;
   try {
-    const response = await fetch('/api/status', { headers: { Authorization: `Bearer ${transaction.token}` }, cache: 'no-store', signal: AbortSignal.timeout(15000) });
+    const response = await fetch('/api/status', { headers: { Authorization: `Bearer ${current.token}` }, cache: 'no-store', signal: AbortSignal.timeout(15000) });
     if (!response.ok) throw new Error('status');
     const result = await response.json();
+    if (!isCurrent()) return;
+    if (!['PENDING', 'PAID', 'CANCELLED', 'REFUNDED'].includes(result.status)) throw new Error('unknown status');
     pollFailures = 0;
     if (result.status === 'PAID') { status('Pagamento confirmado!', 'paid'); terminal = true; $('#copy-button').hidden = true; return; }
     if (['CANCELLED', 'REFUNDED'].includes(result.status)) {
@@ -54,10 +60,14 @@ async function poll() {
       terminal = true; $('#copy-button').disabled = true; transaction = null; refresh(); return;
     }
     status('Aguardando pagamento');
-  } catch { pollFailures++; if (pollFailures >= 3) status('Consulta indisponível no momento. Confira o pagamento no seu banco.'); }
-  if (dialog.open && !terminal) pollTimer = setTimeout(poll, Math.min(10000 * (pollFailures + 1), 60000));
+  } catch {
+    if (!isCurrent()) return;
+    pollFailures++; if (pollFailures >= 3) status('Consulta indisponível no momento. Confira o pagamento no seu banco.');
+  }
+  if (isCurrent() && !terminal) pollTimer = setTimeout(poll, Math.min(10000 * (pollFailures + 1), 60000));
 }
 function showPix() {
+  pollSession++;
   $('#pix-code').value = transaction.code;
   $('#qr-image').src = transaction.qrImage || '';
   $('.qr-wrap').hidden = !transaction.qrImage;
@@ -80,7 +90,7 @@ form.addEventListener('submit', async event => {
   refresh();
   if (Object.keys(validate(data())).length) return;
   const customer = data();
-  if (transaction && transactionCustomer === JSON.stringify(customer) && !expired()) { showPix(); return; }
+  if (transaction && transactionCustomer === JSON.stringify(customer)) { showPix(); return; }
   busy = true; refresh(); $('#request-error').hidden = true;
   try {
     const response = await fetch('/api/pix', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(customer), signal: AbortSignal.timeout(55000) });
