@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="description" content="Checkout Black Saúde 360. Finalize sua compra de R$ 347,00 com Pix." />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Black Saúde 360 | Checkout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="brazil" viewBox="0 0 28 20"><rect width="28" height="20" rx="2" fill="#009b3a" stroke="none"/><path d="m14 2 12 8-12 8L2 10Z" fill="#ffdf00" stroke="none"/><circle cx="14" cy="10" r="5" fill="#002776" stroke="none"/><path d="M9.3 8.6c3-.3 6 .7 8.8 2.8" stroke="white" stroke-width="1.3"/></symbol><symbol id="shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6z"/><path d="m8.5 11.5 2.5 2.5 4.5-5"/></symbol>
+    <symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="9" r="3"/><path d="M6.5 18a5.5 5.5 0 0 1 11 0"/></symbol>
+    <symbol id="cart" viewBox="0 0 24 24"><path d="M3 4h2l3 12h10l3-9H6"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></symbol>
+    <symbol id="pix" viewBox="0 0 24 24"><path d="m9.7 3.1-4 4h2.6L12 11l3.7-3.9h2.6l-4-4a3.2 3.2 0 0 0-4.6 0Zm-6.6 6.6a3.2 3.2 0 0 0 0 4.6l1.7 1.7h3.5l3.7-3.7 3.7 3.7h3.5l1.7-1.7a3.2 3.2 0 0 0 0-4.6L19.2 8h-3.5L12 11.7 8.3 8H4.8Zm2.6 7.2 4 4a3.2 3.2 0 0 0 4.6 0l4-4h-2.6L12 13l-3.7 3.9Z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V3H3v13h5"/></symbol>
+  </defs></svg>
+  <header class="topbar"><div class="topbar-inner"><span class="secure"><svg><use href="#shield"/></svg> COMPRA SEGURA</span><span class="country" aria-label="Idioma: português do Brasil"><svg class="flag" aria-hidden="true"><use href="#brazil"/></svg> <span aria-hidden="true">⌄</span></span></div></header>
+  <main class="checkout">
+    <article class="product">
+      <img class="banner" src="/banner.png" width="1920" height="600" alt="Black Saúde 360. Todas as formações com acesso vitalício e bônus exclusivos." fetchpriority="high" />
+      <div class="product-info"><h1>⭐ [OFERTA OFICIAL] Black Saúde 360 - Dra. Ryuza Gonçalves</h1><p class="price">R$ 347,00</p></div>
+    </article>
+    <form id="checkout-form" novalidate>
+      <section class="customer" aria-labelledby="customer-heading">
+        <h2 id="customer-heading"><svg><use href="#user"/></svg> Suas informações</h2>
+        <div class="field" data-field="email"><label class="sr-only" for="email">Seu e-mail</label><input id="email" name="email" type="email" autocomplete="email" placeholder="Seu e-mail" maxlength="254" required aria-describedby="email-error" /><p class="field-error" id="email-error"></p></div>
+        <div class="field" data-field="name"><label class="sr-only" for="name">Nome completo</label><input id="name" name="name" autocomplete="name" placeholder="Nome completo" maxlength="150" required aria-describedby="name-error" /><p class="field-error" id="name-error"></p></div>
+        <div class="field" data-field="phone"><div class="phone-box"><label for="phone">Telefone</label><span class="dial-code" aria-hidden="true"><svg class="flag" aria-hidden="true"><use href="#brazil"/></svg> <span class="small-chevron">⌄</span> +55</span><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" maxlength="16" required aria-describedby="phone-error" /></div><p class="field-error" id="phone-error"></p></div>
+        <div class="field" data-field="document"><label class="sr-only" for="document">CPF/CNPJ</label><input id="document" name="document" inputmode="numeric" autocomplete="off" placeholder="CPF/CNPJ" maxlength="18" required aria-describedby="document-error" /><p class="field-error" id="document-error"></p></div>
+      </section>
+      <section class="payment" aria-labelledby="payment-heading">
+        <h2 id="payment-heading"><span class="dollar" aria-hidden="true">$</span> Pagamento</h2>
+        <div class="payment-method"><svg><use href="#pix"/></svg> PIX</div>
+        <div class="payment-info"><svg><use href="#pix"/></svg><h3>Informações sobre o pagamento via pix:</h3><p>Valor à vista: <strong>R$ 347,00</strong> É simples, só usar o aplicativo do seu banco para pagar PIX. Super seguro. O pagamento PIX foi desenvolvido pelo Banco Central para facilitar pagamentos.</p></div>
+      </section>
+      <details class="order" open><summary><span class="cart-badge"><svg><use href="#cart"/></svg></span> Detalhes da compra <span class="chevron" aria-hidden="true"></span></summary><div class="order-content"><div class="order-item"><span>⭐ [OFERTA OFICIAL] Black Saúde 360 - Dra. Ryuza Gonçalves</span><strong>R$ 347,00</strong></div><div class="order-total"><strong>TOTAL</strong><strong>R$ 347,00</strong></div></div></details>
+      <div class="consent"><input id="terms" type="checkbox" name="terms" required /><label for="terms">Concordo com os</label> <button id="terms-open" type="button" class="text-button">Termos de uso</button></div>
+      <p class="request-error" id="request-error" role="alert" hidden></p>
+      <button class="pay-button" id="pay-button" type="submit" disabled>Gerar código QR</button>
+      <p class="footnote"><svg><use href="#shield"/></svg> Seus dados são usados para processar esta compra.</p>
+    </form>
+  </main>
+  <dialog id="pix-dialog" aria-labelledby="pix-title"><button type="button" class="close" aria-label="Fechar janela" data-close="pix-dialog">×</button><div class="modal-icon"><svg><use href="#pix"/></svg></div><h2 id="pix-title">Pague com Pix</h2><p class="modal-subtitle">Escaneie o QR Code ou copie o código abaixo.</p><p class="modal-price">R$ 347,00</p><div class="qr-wrap"><img id="qr-image" alt="QR Code para pagar R$ 347,00" width="220" height="220" /></div><p id="expiry" class="expiry"></p><label for="pix-code" class="code-label">Pix copia e cola</label><textarea id="pix-code" rows="3" readonly spellcheck="false"></textarea><button type="button" id="copy-button" class="copy-button"><svg><use href="#copy"/></svg><span>Copiar código Pix</span></button><p id="copy-status" class="copy-status" role="status" aria-live="polite"></p><p id="payment-status" class="payment-status" role="status">Aguardando pagamento</p><p class="modal-help">No aplicativo do seu banco, escolha Pix → Copia e Cola. Confira o valor e o recebedor antes de confirmar.</p></dialog>
+  <dialog id="terms-dialog" aria-labelledby="terms-title"><button type="button" class="close" aria-label="Fechar termos" data-close="terms-dialog">×</button><h2 id="terms-title">Termos de uso do checkout</h2><p>Este checkout processa a compra da oferta Black Saúde 360 — Dra. Ryuza Gonçalves, pelo valor único de <strong>R$ 347,00</strong>, via Pix.</p><p>Informe dados corretos e confira o valor e o recebedor no aplicativo do seu banco antes de confirmar. Gerar o código não conclui o pagamento; a confirmação depende da instituição financeira.</p><p>Nome, e-mail, telefone e CPF/CNPJ são enviados à Black Cat para processar a transação. Este site não mantém banco de dados próprio de pagamentos. A operadora poderá manter os registros necessários ao processamento.</p><p>As condições de conteúdo, acesso, suporte e cancelamento são as informadas pelo responsável pela oferta. Os direitos previstos na legislação aplicável permanecem assegurados.</p><button class="copy-button" type="button" data-close="terms-dialog">Entendi</button></dialog>
+</body>
+</html>
+
